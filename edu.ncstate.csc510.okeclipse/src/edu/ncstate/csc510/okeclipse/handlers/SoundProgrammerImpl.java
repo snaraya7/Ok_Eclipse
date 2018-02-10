@@ -1,5 +1,8 @@
 package edu.ncstate.csc510.okeclipse.handlers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.IEditorPart;
@@ -13,11 +16,14 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	/**
 	 * Just return main method string
+	 * @author charan
 	 */
 	@Override
 	public String generateMainMethod() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String returnValue;
+		returnValue = "public static void main (String[] args) {\r\n" + "		\r\n" + "}\r\n"; 
+		return returnValue;
 	}
 
 	/**
@@ -31,11 +37,48 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	/**
 	 * Refer interface_requirement.txt in explanation package
+	 * @author charan
 	 */
 	@Override
 	public String implementInterface(String javaSourceCode, String interfaceCode) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String returnValue,replaceStr;
+		int beginIndex,endIndex;
+		String [] method;
+		
+		beginIndex=interfaceCode.indexOf("interface");
+		beginIndex+=8;
+		endIndex=interfaceCode.indexOf("{", beginIndex);
+		replaceStr="implements"+interfaceCode.substring(beginIndex+1, endIndex)+"{";
+		javaSourceCode=javaSourceCode.replaceFirst("\\{", replaceStr);
+		beginIndex=interfaceCode.indexOf("{");
+		endIndex=interfaceCode.indexOf("}");
+		replaceStr=interfaceCode.substring(beginIndex+1, endIndex);
+		returnValue=javaSourceCode.replaceFirst("\\s+\\}", replaceStr+"\\}");
+		replaceStr=replaceStr.replaceAll("\\{|\r\n\\s+", "");
+		method=replaceStr.split(";");
+		for (String s: method) 
+		{           
+			Pattern p = Pattern.compile("(?:public|private|static)\\s(\\w+)\\s(\\w+)\\(\\)");
+	        Matcher m = p.matcher(s);
+	        while(m.find())
+	        {
+	        	String dataType=m.group(1);
+	        	String fnctName=m.group(2);
+	        	switch(dataType) {
+	        	case "void": 	replaceStr="){\r\n\r\n\t}";
+	        				 	break;
+	        	case "int": 	replaceStr="){\r\n\r\n\treturn 0;\r\n\t}";
+	        					break;
+	        	case "boolean": replaceStr="){\r\n\r\n\treturn false;\r\n\t}";
+	        					break;
+	        	case "String": replaceStr="){\r\n\r\n\treturn null;\r\n\t}";
+	        					break;
+	        	}
+	        	returnValue=returnValue.replaceFirst("\\);", replaceStr);
+	        }
+		}
+		return returnValue;
 	}
 
 	// Requirement..
