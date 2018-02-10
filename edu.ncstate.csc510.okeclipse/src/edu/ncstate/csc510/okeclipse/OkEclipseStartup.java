@@ -9,6 +9,11 @@ import org.eclipse.ui.PlatformUI;
 
 import edu.ncstate.csc510.okeclipse.common.VoiceRecognizer;
 
+/**
+ * 
+ * @author ncshr
+ *
+ */
 public class OkEclipseStartup implements IStartup {
 
 	@Override
@@ -20,7 +25,8 @@ public class OkEclipseStartup implements IStartup {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-					MessageDialog.openConfirm(activeShell, "Ok Eclipse", "We are listening, press CTRL key to order!");
+					MessageDialog.openConfirm(activeShell, "Ok Eclipse",
+							"'shift+z' and recite your request!");
 				}
 			});
 
@@ -29,7 +35,8 @@ public class OkEclipseStartup implements IStartup {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-					MessageDialog.openConfirm(activeShell, "Ok Eclipse!", "Error occured (see log for more details)  : "+e.getMessage());
+					MessageDialog.openConfirm(activeShell, "Ok Eclipse!",
+							"Error occured (see log for more details)  : " + e.getMessage());
 				}
 			});
 
