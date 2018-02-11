@@ -3,6 +3,13 @@ package edu.ncstate.csc510.okeclipse.handlers;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.TextConsole;
+
 import java.util.regex.Matcher;
 import edu.ncstate.csc510.okeclipse.common.ILoudConsole;
 
@@ -45,7 +52,16 @@ public class LoudConsoleImpl implements ILoudConsole {
 
 	@Override
 	public String getConsoleContent() {
-		// TODO Auto-generated method stub
+		IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+
+		IConsole[] consoles = manager.getConsoles();
+
+		for (IConsole console : consoles) {
+			if (console instanceof TextConsole) {
+				IDocument doc = ((TextConsole) console).getDocument();
+				return doc.get();
+			}
+		}
 		return null;
 	}
 }

@@ -53,7 +53,7 @@ public class SpeechHandler extends AbstractHandler {
 			IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 
 			executeCommand(spokenText, window);
-
+			
 		} catch (Exception e) {
 
 			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
