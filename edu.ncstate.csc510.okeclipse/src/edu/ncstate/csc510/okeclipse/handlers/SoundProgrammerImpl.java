@@ -29,7 +29,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 	 */
 	@Override
 	public String generateGetterSetter(String javaSourceCode) {
-		String getSetResult = javaSourceCode.substring(0,javaSourceCode.length()-1);
+	String getSetResult = javaSourceCode.substring(0,javaSourceCode.lastIndexOf("}"));
 		List<String> getSetResultLines = new ArrayList<String>();
 		
 // Extracting names and types of members		
