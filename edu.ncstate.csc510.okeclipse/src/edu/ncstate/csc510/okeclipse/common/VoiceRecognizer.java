@@ -12,7 +12,6 @@ import java.util.Map;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.ncstate.csc510.okeclipse.builder.CustomDictionaryBuilder;
-import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 

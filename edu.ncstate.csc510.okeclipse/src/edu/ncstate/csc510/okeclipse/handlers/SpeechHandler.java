@@ -1,5 +1,6 @@
 package edu.ncstate.csc510.okeclipse.handlers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -8,7 +9,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -32,32 +36,53 @@ public class SpeechHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
+		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+
 		try {
+			ProgressMonitorDialog dialog = new ProgressMonitorDialog(activeShell);
 
-			SpeechResult result;
-			String spokenText = "";
-			while ((result = VoiceRecognizer.getRecognizer().getResult()) != null) {
+			dialog.run(false, false, new IRunnableWithProgress() {
 
-				for (WordResult r : result.getWords()) {
-					spokenText += r.getWord() + " ";
+				@Override
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+					monitor.beginTask("Speak now", 3);
+
+					SpeechResult result;
+					String spokenText = "";
+					while ((result = VoiceRecognizer.getRecognizer().getResult()) != null) {
+
+						for (WordResult r : result.getWords()) {
+							spokenText += r.getWord() + " ";
+						}
+
+						if (spokenText != null && spokenText.length() > 0) {
+							break;
+						}
+
+					}
+
+					spokenText = clean(spokenText);
+
+					monitor.setTaskName("You've asked for " + spokenText);
+
+					monitor.worked(1);
+
+					try {
+						executeCommand(spokenText, window);
+					} catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
+						MessageDialog.openError(activeShell, "Ok Eclipse",
+								"Error while executing your request " + e.getMessage());
+						e.printStackTrace();
+					}
+
+					monitor.done();
 				}
-
-				if (spokenText != null && spokenText.length() > 0) {
-					break;
-				}
-
-			}
-
-			spokenText = clean(spokenText);
-
-			IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-
-			executeCommand(spokenText, window);
-
+			});
 		} catch (Exception e) {
 
-			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 			MessageDialog.openError(activeShell, "Ok Eclipse", "Error while executing your request " + e.getMessage());
+			e.printStackTrace();
 
 		}
 
