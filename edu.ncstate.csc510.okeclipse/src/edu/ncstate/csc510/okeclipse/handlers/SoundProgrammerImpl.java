@@ -112,4 +112,10 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	}
 
+	@Override
+	public void injectCode(String javaClass) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

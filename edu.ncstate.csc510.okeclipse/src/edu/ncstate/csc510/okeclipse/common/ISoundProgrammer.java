@@ -9,6 +9,8 @@ import org.eclipse.jface.text.BadLocationException;
  */
 public interface ISoundProgrammer {
 	
+	public void injectCode(String javaClass);
+	
 	public String generateMainMethod();
 	
 	public String generateGetterSetter(String javaSourceCode);
