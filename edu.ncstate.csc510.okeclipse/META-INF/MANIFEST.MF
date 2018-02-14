@@ -14,7 +14,9 @@ Bundle-ClassPath: lib/sphinx/sphinx4-core/5prealpha-SNAPSHOT/sphinx4-core-5preal
  lib/sphinx/sphinx4-core/5prealpha-SNAPSHOT/sphinx4-core-5prealpha-SNAPSHOT.jar,
  lib/sphinx/sphinx4-data/5prealpha-SNAPSHOT/sphinx4-data-5prealpha-20160628.232535-10.jar,
  lib/sphinx/sphinx4-data/5prealpha-SNAPSHOT/sphinx4-data-5prealpha-SNAPSHOT.jar,
- .
+ .,
+ lib/com.so.eclipse.helper_1.0.5.jar,
+ lib/jsoup-1.8.3.jar
 Bundle-Activator: edu.ncstate.csc510.okeclipse.common.OkEclipseActivator
 Import-Package: org.eclipse.ui.console,
  org.eclipse.ui.texteditor
