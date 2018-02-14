@@ -81,22 +81,16 @@
       </startup>
    </extension>
    <extension
-         point="org.eclipse.ui.views">
-      <category
-            id="edu.ncstate.csc510.okeclipse"
-            name="Ok Eclipse">
-      </category>
-      <view
-            category="edu.ncstate.csc510.okeclipse"
-            class="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
-            icon="icons/sample.png"
-            id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
-            inject="true"
-            name="Ok Eclipse View">
-      </view>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
@@ -112,6 +106,24 @@
       <contexts
             file="contexts.xml">
       </contexts>
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="edu.ncstate.csc510.okeclipse"
+            name="Ok Eclipse">
+      </category>
+      <view
+            category="edu.ncstate.csc510.okeclipse"
+            class="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
+            icon="icons/sample.png"
+            id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
+            inject="true"
+            name="Ok Eclipse View">
+      </view>
    </extension>
 
 </plugin>

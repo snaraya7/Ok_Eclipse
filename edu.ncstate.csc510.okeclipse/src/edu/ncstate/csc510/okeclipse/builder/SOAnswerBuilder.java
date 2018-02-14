@@ -37,6 +37,12 @@ public class SOAnswerBuilder {
 
 	public void build(List<String> questions) throws IOException, PartInitException {
 
+		//Code : string to integer
+		
+		//code : print string
+		
+		
+		
 		IProgressMonitor monitor = new NullProgressMonitor();
 
 		content.append("<html><body>");
@@ -61,7 +67,7 @@ public class SOAnswerBuilder {
 
 	}
 
-	private List<StackoverflowAnswer> extractAnswers(String question, IProgressMonitor monitor) throws IOException {
+	public List<StackoverflowAnswer> extractAnswers(String question, IProgressMonitor monitor) throws IOException {
 		List<GoogleResult> googleResults = GoogleFetcher.getGoogleResults(question, monitor);
 		List<StackoverflowPost> stackoverflowPosts = StackoverflowFetcher.getStackoverflowPosts(googleResults, monitor);
 		QuestionPage questionPage = new CustomQuestionPage();
