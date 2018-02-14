@@ -18,6 +18,11 @@
             id="edu.ncstate.csc510.okeclipse.analyzeconsole"
             name="help">
       </command>
+      <command
+            categoryId="edu.ncstate.csc510.okeclipse.commands.category"
+            id="edu.ncstate.csc510.okeclipse.injectcode"
+            name="Inject code">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -28,6 +33,10 @@
       <handler
             class="edu.ncstate.csc510.okeclipse.handlers.AnalyzeConsoleHandler"
             commandId="edu.ncstate.csc510.okeclipse.analyzeconsole">
+      </handler>
+      <handler
+            class="edu.ncstate.csc510.okeclipse.handlers.InjectCodeHandler"
+            commandId="edu.ncstate.csc510.okeclipse.injectcode">
       </handler>
    </extension>
    <extension
@@ -43,6 +52,18 @@
             sequence="M2+X"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+      <key
+            commandId="edu.ncstate.csc510.okeclipse.injectcode"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+C">
+      </key>
+      <key
+            commandId="edu.ncstate.csc510.okeclipse.analyzeconsole"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+C">
       </key>
    </extension>
    <extension

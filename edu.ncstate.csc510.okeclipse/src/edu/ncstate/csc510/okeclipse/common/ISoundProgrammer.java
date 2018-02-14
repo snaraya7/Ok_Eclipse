@@ -8,17 +8,25 @@ import org.eclipse.jface.text.BadLocationException;
  *
  */
 public interface ISoundProgrammer {
-	
-	public void injectCode(String javaClass);
-	
+
+	public void injectCode(String javaSourceCode);
+
 	public String generateMainMethod();
-	
+
 	public String generateGetterSetter(String javaSourceCode);
-	
+
 	public String implementInterface(String javaSourceCode, String variableName);
-	 
+
 	public String generateSort(String variable);
-	
-	public void insertContent(String content) throws BadLocationException;
+
+	/**
+	 * 
+	 * @param content
+	 *            - string to insert
+	 * @param position
+	 *            - index in the file to insert
+	 * @throws BadLocationException
+	 */
+	public void insertContent(String content, int position) throws BadLocationException;
 
 }
