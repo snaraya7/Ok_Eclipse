@@ -1,0 +1,44 @@
+<html><link rel="stylesheet" type="text/css" href="style.css"/></head><body><h2>OkayEclipse Recommendations</h2><table class="flatTable"><tr class="titleTr"><td class="titleTd">java.lang.ClassNotFoundException</td><td colspan="4"></td><tr class="headingTr"><td>ACCEPTED</td><td>UPVOTES</td><td>SOLUTION</td></tr><tr><td>Yes</td><td>188</td><td><p>I've come across that situation several times and, after a lot of attempts, I found the solution.</p> 
+<p><em>Check your project build-path and enable specific output folders for each folder.</em> Go one by one though each source-folder of your project and set the output folder that maven would use. </p> 
+<p>For example, your web project's <span style="background-color: #DCDCDC"><code>src/main/java</span></code> should have <span style="background-color: #DCDCDC"><code>target/classes</span></code> under the web project, test classes should have <span style="background-color: #DCDCDC"><code>target/test-classes</span></code> also under the web project and so.</p> 
+<p>Using this configuration will allow you to execute unit tests in eclipse.</p> 
+<p>Just one more advice, if your web project's tests require some configuration files that are under the resources, be sure to include that folder as a source folder and to make the proper build-path configuration.</p> 
+<p>Hope it helps.</p></td></tr><tr><td>Yes</td><td>18</td><td><p>You should have the class file within the package - so it should be in a directory called <span style="background-color: #DCDCDC"><code>pack</span></code>. Then with the parent directory in the classpath, you'd run</p> 
+<pre><span style="background-color: #DCDCDC"><code>java pack.sample
+</span></code></pre> 
+<p>(You should also change the class name to Sample to follow conventions, btw - and run <span style="background-color: #DCDCDC"><code>pack.Sample</span></code>.)</p> 
+<p>If you're building with javac, specify the "-d" option to tell it the base directory, and it will create the appropriate package structure if necessary. For example:</p> 
+<pre><span style="background-color: #DCDCDC"><code>javac -d classes Sample.java
+</span></code></pre> 
+<p>or</p> 
+<pre><span style="background-color: #DCDCDC"><code>javac -d classes src/pack/Sample.java
+</span></code></pre> 
+<p>will (in both cases) create</p> 
+<pre><span style="background-color: #DCDCDC"><code>classes/pack/Sample.class
+</span></code></pre> 
+<p>You could then run</p> 
+<pre><span style="background-color: #DCDCDC"><code>java -cp classes pack.Sample
+</span></code></pre></td></tr></table><br></br><a target="_blank" href="https://www.youtube.com/results?search_query=java.lang.ClassNotFoundException"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/YoutubeLogoLink.png" alt="Smiley face"></a><table class="flatTable"><tr class="titleTr"><td class="titleTd">java.lang.NumberFormatException</td><td colspan="4"></td><tr class="headingTr"><td>ACCEPTED</td><td>UPVOTES</td><td>SOLUTION</td></tr><tr><td>Yes</td><td>1</td><td><p>The error in the line</p> 
+<pre><span style="background-color: #DCDCDC"><code>temperature = Integer.parseInt(br.readLine());
+</span></code></pre> 
+<p>This is reading in the input and trying to parse it as an Integer. As the exception suggests the input is not a number i.e. <span style="background-color: #DCDCDC"><code>NumberFormatException</span></code> as <span style="background-color: #DCDCDC"><code>Integer.parseInt()</span></code> expects the argument to be a number.</p> 
+<p>There are multiple ways to fix this:</p> 
+<p>One way (I personally believe not the best) is to catch the exception and just do nothing and continue</p> 
+<pre><span style="background-color: #DCDCDC"><code>try
+{
+    temperature = Integer.parseInt(br.readLine());
+    // and do any code that uses temperature
+    //if you don't then temperature will not be assigned
+}
+catch (NumberFormatException nfex)
+{}
+</span></code></pre> 
+<p>A better way would be to check the input string is a number before trying to parse</p> 
+<pre><span style="background-color: #DCDCDC"><code>String input = br.readLine();
+if(input.matches("\\d+"))  // Only ints so don't actually need to consider decimals
+    //is a number... do relevant code
+    temperature = Integer.parseInt(input);
+else
+    //not a number
+    System.out.println("Not a number that was input");
+</span></code></pre></td></tr></table><br></br><a target="_blank" href="https://www.youtube.com/results?search_query=java.lang.NumberFormatException"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/YoutubeLogoLink.png" alt="Smiley face"></a></body></html>

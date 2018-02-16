@@ -72,21 +72,41 @@ public class SOAnswerBuilder {
 	 * @throws PartInitException
 	 */
 	
+	public static void main(String args[]) {
+		SOAnswerBuilder response1 = new SOAnswerBuilder();
+		String qn_string = "java.lang.ClassNotFoundException#java.lang.NumberFormatException";
+		List<String> qn = new ArrayList<String>(Arrays.asList(qn_string.split("#")));
+		try {
+			response1.build(qn);
+		} catch (PartInitException | IOException e) {
+			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			MessageDialog.openError(activeShell, "Ok Eclipse", "Error while executing your request " + e.getMessage());
+
+		}
+		
+	}	
+	
 	public void build(List<String> questions) throws IOException, PartInitException {
 
 		IProgressMonitor monitor = new NullProgressMonitor();
 
 		content.append("<html>");
-		content.append("<style>	table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}"); 
-		content.append("td, th {border: 1px solid #bb8fce; text-align: left; padding: 8px;}");
-		content.append("</style></head><body style=\"background-color:#ebdef0;\">");
-		content.append("<h1 style=\"color:#a93226\" align=\"center\">Error Solution Recommendations</h1>");
-		
+		content.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>");
+//		content.append("<style>	table { font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}"); 
+//		content.append("td, th {border: 1px solid #bb8fce; text-align: left; padding: 8px;}");
+//		content.append("</style>");
+		content.append("</head><body>");
+		content.append("<h2>");
+		content.append("OkayEclipse Recommendations");
+		content.append("</h2>");
 		for (String question : questions) {
-			content.append("<h2 style=\"color:red\">" + question + "</h2>");
-			content.append("<table>");
-			content.append("<tr><th bgcolor=\"#d35400\">Accepted?</th><th bgcolor=\"#d35400\">Upvotes</th> <th bgcolor=\"#d35400\">Solution</th></tr>");
-						
+			
+			content.append("<table class=\"flatTable\">");
+			content.append("<tr class=\"titleTr\"><td class=\"titleTd\">");
+			content.append(question);
+			content.append("</td><td colspan=\"4\"></td>");
+			content.append("<tr class=\"headingTr\"><td>ACCEPTED</td><td>UPVOTES</td><td>SOLUTION</td></tr>");
+					
 			buildHTMLBodyContent(extractAnswers(question, monitor));  // content.append("<tr><td>VOTES_VALUE</td><td>SOLUTION_VALUE</td></tr>");
 
 			content.append("</table><br></br>");
