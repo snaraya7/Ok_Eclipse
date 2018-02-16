@@ -1,8 +1,11 @@
 package edu.ncstate.csc510.okeclipse.handlers;
 
+import java.io.IOException;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.text.BadLocationException;
 
 import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
 import edu.ncstate.csc510.okeclipse.util.Util;
@@ -19,7 +22,15 @@ public class InjectCodeHandler extends AbstractHandler {
 
 		ISoundProgrammer programmer = new SoundProgrammerImpl();
 
-		programmer.injectCode(Util.getCurrentEditorContent().get());
+		try {
+			programmer.injectCode(Util.getCurrentEditorContent().get());
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return null;
 	}

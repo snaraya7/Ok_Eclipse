@@ -1,5 +1,7 @@
 package edu.ncstate.csc510.okeclipse.common;
 
+import java.io.IOException;
+
 import org.eclipse.jface.text.BadLocationException;
 
 /**
@@ -9,7 +11,7 @@ import org.eclipse.jface.text.BadLocationException;
  */
 public interface ISoundProgrammer {
 
-	public void injectCode(String javaSourceCode);
+	public void injectCode(String javaSourceCode) throws BadLocationException, IOException;
 
 	public String generateMainMethod();
 
