@@ -24,6 +24,9 @@ import edu.ncstate.csc510.okeclipse.resources.Resources;
  */
 public class CommandsBuilder {
 
+	public static void main(String[] args) {
+		System.out.println(getCommands());
+	}
 	private static final String FILENAME = "commands.csv";
 
 	private static final File commandsFile = new File(System.getProperty("user.dir") + File.separator + FILENAME);
@@ -99,6 +102,7 @@ public class CommandsBuilder {
 		}
 
 	}
+	
 
 	public static List<OECommand> getCommands() {
 		return commands;
