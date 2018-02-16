@@ -39,32 +39,6 @@ public class SOAnswerBuilder {
 
 	private StringBuffer content = new StringBuffer();
 
-//	public void build(List<String> questions) throws IOException, PartInitException {
-//
-//		IProgressMonitor monitor = new NullProgressMonitor();
-//
-//		content.append("<html><body>");
-//		for (String question : questions) {
-//			content.append("<h2> Solution : " + question + "</h2>");
-//			// content.append("<iframe width=\"420\" height=\"315\"
-//			// src=\"https://www.youtube.com/results?search_query="
-//			// + question + "\"> </iframe>");
-//			buildHTMLBodyContent(extractAnswers(question, monitor));
-//
-//			String utubeUrl = "https://www.youtube.com/results?search_query=" + question;
-//			content.append("<a target=\"_blank\" href=\"" + utubeUrl
-//					+ "\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/2/2e/YoutubeLogoLink.png\" alt=\"Smiley face\"></a>");
-//
-//			// openExternalBrowser(new URL("));
-//
-//		}
-//		content.append("</body></html>");
-//		write();
-//
-//		openBrowser();
-//
-//	}
-
 	/**
 	 * @author M.S.Karthik
 	 * @param questions
