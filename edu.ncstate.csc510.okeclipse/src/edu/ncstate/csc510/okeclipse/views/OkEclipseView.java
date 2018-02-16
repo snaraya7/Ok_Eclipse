@@ -1,5 +1,6 @@
 package edu.ncstate.csc510.okeclipse.views;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.inject.Inject;
 
@@ -13,14 +14,22 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
@@ -28,22 +37,21 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
+import edu.ncstate.csc510.okeclipse.builder.CommandsBuilder;
+import edu.ncstate.csc510.okeclipse.model.OECommand;
 
 /**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view
+ * shows data obtained from the model. The sample creates a dummy model on the
+ * fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the
+ * model using a content provider.
  * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be
+ * presented in the view. Each view can present the same model objects using
+ * different labels and icons, if needed. Alternatively, a single label provider
+ * can be shared between views in order to ensure that objects of the same type
+ * are presented in the same way everywhere.
  * <p>
  */
 
@@ -54,23 +62,25 @@ public class OkEclipseView extends ViewPart {
 	 */
 	public static final String ID = "edu.ncstate.csc510.okeclipse.views.OkEclipseView";
 
-	@Inject IWorkbench workbench;
-	
+	@Inject
+	IWorkbench workbench;
+
 	private TableViewer viewer;
 	private Action action1;
 	private Action action2;
 	private Action doubleClickAction;
-	 
 
 	class ViewLabelProvider extends LabelProvider implements ITableLabelProvider {
 		@Override
 		public String getColumnText(Object obj, int index) {
 			return getText(obj);
 		}
+
 		@Override
 		public Image getColumnImage(Object obj, int index) {
 			return getImage(obj);
 		}
+
 		@Override
 		public Image getImage(Object obj) {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
@@ -79,19 +89,39 @@ public class OkEclipseView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-		
-		viewer.setContentProvider(ArrayContentProvider.getInstance());
-		viewer.setInput(new String[] { "One", "Two", "Three" });
-	viewer.setLabelProvider(new ViewLabelProvider());
+		TableViewer viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		viewer.setContentProvider(new OECommandContentProvider());
+		viewer.setLabelProvider(new OECommandLabelProvider());
 
+		Table table = viewer.getTable();
+	    table.setLayoutData(new GridData(GridData.FILL_BOTH));
+	    
+	    // Add the First column : Command
+	    TableColumn tc = new TableColumn(table, SWT.LEFT);
+	    tc.setText("Command");
+	    
+	    // Add the Second column : Command ID
+	    tc = new TableColumn(table, SWT.LEFT);
+	    tc.setText("Command ID");
+	    
+	    viewer.setInput(CommandsBuilder.getCommands());
+	    
+	    // Pack the columns
+	    for (int i = 0, n = table.getColumnCount(); i < n; i++) {
+	      table.getColumn(i).pack();
+	    }
+	    
+	    // Turn on the header and the lines
+	    table.setHeaderVisible(true);
+	    table.setLinesVisible(true);
+		
 		// Create the help context id for the viewer's control
-		workbench.getHelpSystem().setHelp(viewer.getControl(), "edu.ncstate.csc510.okeclipse.viewer");
+//		workbench.getHelpSystem().setHelp(viewer.getControl(), "edu.ncstate.csc510.okeclipse.viewer");
 		getSite().setSelectionProvider(viewer);
-		makeActions();
-		hookContextMenu();
-		hookDoubleClickAction();
-		contributeToActionBars();
+//		makeActions();
+//		hookContextMenu();
+//		hookDoubleClickAction();
+//		contributeToActionBars();
 	}
 
 	private void hookContextMenu() {
@@ -125,7 +155,7 @@ public class OkEclipseView extends ViewPart {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
+
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(action1);
 		manager.add(action2);
@@ -134,13 +164,13 @@ public class OkEclipseView extends ViewPart {
 	private void makeActions() {
 		action1 = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				showMessage("Action 1 executed"); //Write updated commands file
 			}
 		};
 		action1.setText("Action 1");
 		action1.setToolTipText("Action 1 tooltip");
-		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action1.setImageDescriptor(
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
 		action2 = new Action() {
 			public void run() {
@@ -149,13 +179,12 @@ public class OkEclipseView extends ViewPart {
 		};
 		action2.setText("Action 2");
 		action2.setToolTipText("Action 2 tooltip");
-		action2.setImageDescriptor(workbench.getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		action2.setImageDescriptor(workbench.getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		doubleClickAction = new Action() {
 			public void run() {
 				IStructuredSelection selection = viewer.getStructuredSelection();
 				Object obj = selection.getFirstElement();
-				showMessage("Double-click detected on "+obj.toString());
+				showMessage("Double-click detected on " + obj.toString());
 			}
 		};
 	}
@@ -167,15 +196,161 @@ public class OkEclipseView extends ViewPart {
 			}
 		});
 	}
+
 	private void showMessage(String message) {
-		MessageDialog.openInformation(
-			viewer.getControl().getShell(),
-			"Ok Eclipse View",
-			message);
+		MessageDialog.openInformation(viewer.getControl().getShell(), "Ok Eclipse View", message);
 	}
 
 	@Override
 	public void setFocus() {
-		viewer.getControl().setFocus();
+//		viewer.getControl().setFocus();
 	}
 }
+
+
+
+
+
+
+
+
+
+/**
+ * This class contains constants for the OECOmmandsTable application
+ */
+
+class ColumnConst {
+  // Column constants
+  public static final int COLUMN_COMMAND_NAME = 0;
+
+  public static final int COLUMN_COMMAND_ID = 1;
+
+}
+
+
+
+
+/**
+ * This class provides the labels for OECommandsTable
+ */
+
+class OECommandLabelProvider implements ITableLabelProvider {
+
+  // Constructs a OECommandLabelProvider
+  public OECommandLabelProvider() {
+  }
+
+  /**
+   * Gets the text for the specified column
+   * 
+   * @param arg0
+   *            the OECommand
+   * @param arg1
+   *            the column
+   * @return String
+   */
+  public String getColumnText(Object arg0, int arg1) {
+    OECommand cmnd = (OECommand) arg0;
+    String text = "";
+    switch (arg1) {
+    case ColumnConst.COLUMN_COMMAND_NAME:
+      text = cmnd.getName();
+      break;
+    case ColumnConst.COLUMN_COMMAND_ID:
+      text = cmnd.getId();
+      break;
+    }
+    return text;
+  }
+
+  /**
+   * Adds a listener
+   * 
+   * @param arg0
+   *            the listener
+   */
+  public void addListener(ILabelProviderListener arg0) {
+    // Throw it away
+  }
+
+  /**
+   * Dispose any created resources
+   */
+  public void dispose() {
+
+  }
+
+  /**
+   * Returns whether the specified property, if changed, would affect the
+   * label
+   * 
+   * @param arg0
+   *            the OECommand
+   * @param arg1
+   *            the property
+   * @return boolean
+   */
+  public boolean isLabelProperty(Object arg0, String arg1) {
+    return false;
+  }
+
+  /**
+   * Removes the specified listener
+   * 
+   * @param arg0
+   *            the listener
+   */
+  public void removeListener(ILabelProviderListener arg0) {
+    // Do nothing
+  }
+
+@Override
+public Image getColumnImage(Object element, int columnIndex) {
+	// TODO Auto-generated method stub
+	return null;
+}
+}
+
+/**
+ * This class provides the content for the table
+ */
+
+class OECommandContentProvider implements IStructuredContentProvider {
+
+  /**
+   * Gets the elements for the table
+   * 
+   * @param arg0
+   *            the model
+   * @return Object[]
+   */
+  public Object[] getElements(Object arg0) {
+    // Returns all the commands in the specified team
+   	  return CommandsBuilder.getCommands().toArray();
+  }
+
+  /**
+   * Disposes any resources
+   */
+  public void dispose() {
+    // We don't create any resources, so we don't dispose any
+  }
+
+  /**
+   * Called when the input changes
+   * 
+   * @param arg0
+   *            the parent viewer
+   * @param arg1
+   *            the old input
+   * @param arg2
+   *            the new input
+   */
+  public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
+    // Nothing to do
+  }
+}
+
+
+
+

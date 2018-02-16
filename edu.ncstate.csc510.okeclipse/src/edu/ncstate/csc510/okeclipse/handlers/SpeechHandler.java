@@ -36,6 +36,8 @@ public class SpeechHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
+		// string to integer
+		
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 

@@ -29,3 +29,4 @@ upper,org.eclipse.ui.edit.text.upperCase
 view,org.eclipse.ui.views.showView
 z,org.eclipse.debug.ui.commands.StepInto
 help,edu.ncstate.csc510.okeclipse.analyzeconsole
+inject,edu.ncstate.csc510.okeclipse.injectcode
