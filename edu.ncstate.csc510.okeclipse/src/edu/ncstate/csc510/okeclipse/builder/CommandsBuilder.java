@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.Command;
+
 import edu.ncstate.csc510.okeclipse.model.OECommand;
 import edu.ncstate.csc510.okeclipse.resources.Resources;
 import edu.ncstate.csc510.okeclipse.util.Util;
@@ -81,6 +83,8 @@ public class CommandsBuilder {
 
 			}
 
+			appendEclipseCommands();
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -91,6 +95,16 @@ public class CommandsBuilder {
 					throw e;
 				}
 			}
+		}
+
+	}
+
+	private static void appendEclipseCommands() {
+
+		Command[] eclipseCommands = Util.getEclipseCommands();
+
+		for (Command c : eclipseCommands) {
+			commands.add(new OECommand("<NOT ASSIGNED>", c.getId()));
 		}
 
 	}

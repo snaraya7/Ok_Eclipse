@@ -2,6 +2,7 @@ package edu.ncstate.csc510.okeclipse.views;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -25,10 +26,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -36,6 +39,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.ncstate.csc510.okeclipse.builder.CommandsBuilder;
+import edu.ncstate.csc510.okeclipse.handlers.SpeechHandler;
 import edu.ncstate.csc510.okeclipse.model.OECommand;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
@@ -88,6 +92,8 @@ public class OkEclipseView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
+
+
 		TableViewer viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new OECommandContentProvider());
 		viewer.setLabelProvider(new OECommandLabelProvider());
@@ -123,6 +129,7 @@ public class OkEclipseView extends ViewPart {
 		// hookDoubleClickAction();
 		contributeToActionBars();
 	}
+
 
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");

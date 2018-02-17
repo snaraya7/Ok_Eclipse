@@ -33,10 +33,10 @@ import edu.ncstate.csc510.okeclipse.util.Util;
  */
 public class SpeechHandler extends AbstractHandler {
 
+	private static String spokenTextFinal = "";
+
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-
-		Util.showOkEclipseView();
 
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
@@ -44,10 +44,11 @@ public class SpeechHandler extends AbstractHandler {
 		try {
 			ProgressMonitorDialog dialog = new ProgressMonitorDialog(activeShell);
 
-			dialog.run(false, false, new IRunnableWithProgress() {
+			dialog.run(true, false, new IRunnableWithProgress() {
 
 				@Override
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+
 					monitor.beginTask("Speak now", 3);
 
 					SpeechResult result;
@@ -66,29 +67,42 @@ public class SpeechHandler extends AbstractHandler {
 
 					spokenText = clean(spokenText);
 
+					spokenTextFinal = spokenText;
+
 					monitor.setTaskName("You've asked for " + spokenText);
 
 					monitor.worked(1);
-
-					try {
-						executeCommand(spokenText, window);
-					} catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-						MessageDialog.openError(activeShell, "Ok Eclipse",
-								"Error while executing your request " + e.getMessage());
-						e.printStackTrace();
-					}
-
 					monitor.done();
 				}
-			});
-		} catch (Exception e) {
 
-			MessageDialog.openError(activeShell, "Ok Eclipse", "Error while executing your request " + e.getMessage());
+			});
+
+		}
+
+		catch (Exception e) {
+
+			MessageDialog.openError(activeShell, "Ok Eclipse", "Error while hearing   your request " + e.getMessage());
 			e.printStackTrace();
 
 		}
 
+		processSpokenText(window);
+
 		return null;
+	}
+
+	private void processSpokenText(IWorkbenchWindow window) {
+		String cmdResult = "";
+		try {
+
+			cmdResult = executeCommand(spokenTextFinal, window);
+		} catch (Exception e) {
+			cmdResult = "NOT_APPLICABLE";
+			Util.showError(e, "Error while executing your request");
+			e.printStackTrace();
+
+		}
+		Util.appendToLog("" + spokenTextFinal + "," + cmdResult);
 	}
 
 	private String clean(String spokenText) {
@@ -104,7 +118,7 @@ public class SpeechHandler extends AbstractHandler {
 		return spokenText.trim().toLowerCase();
 	}
 
-	private void executeCommand(String spokenText, IWorkbenchWindow window)
+	private String executeCommand(String spokenText, IWorkbenchWindow window)
 			throws ExecutionException, NotDefinedException, NotEnabledException, NotHandledException {
 
 		String commandId = findCommand(spokenText);
@@ -114,11 +128,17 @@ public class SpeechHandler extends AbstractHandler {
 			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 			MessageDialog.openInformation(activeShell, "Ok Eclipse", "Couldn't catch that! " + spokenText
 					+ "', Feel free to add/customize commands at " + CommandsBuilder.getCommandsfile() + ".");
-			return;
+			return "NOT_RECOGNIZED";
 		}
 
-		IHandlerService handlerService = (IHandlerService) window.getService(IHandlerService.class);
-		handlerService.executeCommand(commandId, null);
+		try {
+			IHandlerService handlerService = (IHandlerService) window.getService(IHandlerService.class);
+			handlerService.executeCommand(commandId, null);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		return "SUCCESS";
 
 	}
 

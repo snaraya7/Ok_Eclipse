@@ -143,7 +143,7 @@
             icon="icons/sample.png"
             id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
             inject="true"
-            name="Ok Eclipse View">
+            name="Ok Eclipse">
       </view>
    </extension>
 

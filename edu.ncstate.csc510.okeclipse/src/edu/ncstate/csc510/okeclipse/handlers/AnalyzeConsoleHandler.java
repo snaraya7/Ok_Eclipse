@@ -29,9 +29,9 @@ public class AnalyzeConsoleHandler extends AbstractHandler {
 
 		try {
 			response.build(console.extract(console.getConsoleContent()));
-		} catch (PartInitException | IOException e) {
+		} catch (Exception e) {
 			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-			MessageDialog.openError(activeShell, "Ok Eclipse", "Error while executing your request " + e.getMessage());
+			MessageDialog.openError(activeShell, "Ok Eclipse - Analyze console", "Empty Console : " + e.getMessage());
 
 		}
 
