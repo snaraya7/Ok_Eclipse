@@ -77,19 +77,25 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 	public void injectCode(String javaClassprime) throws BadLocationException, IOException {
 
 		String javaClass = javaClassprime; 
+		String javaClassset = javaClassprime;
 		
 		int left = javaClass.indexOf("$");// String input = "test string (67)";
 		ArrayList<String> input = new ArrayList<String>();
 		ArrayList<Integer> count = new ArrayList<Integer>();
 		int setpoint = javaClass.indexOf("$");
-		int num = 1;
-		while (setpoint > 0)
-		{
-			if (num % 2 != 0)
-			{
+		int left_1 = 0;
+		while (left_1 >= 0)
+		{	
 			count.add(setpoint);
-		}
-			num+=1;
+			String sub1 = javaClassset.substring(setpoint + 1);
+			int right_pre = sub1.indexOf("$");
+			int right = setpoint + right_pre + 1;
+			String sub = javaClassset.substring(right + 1);
+			left_1 = sub.indexOf("$");
+			if (left_1 >=0)
+			{
+				setpoint = right + left_1+1;
+			}
 		}
 		ArrayList<String> output = new ArrayList<String>();
 		while (left >= 0) {
@@ -127,7 +133,6 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 				for (StackoverflowAnswer answer : myList) {
 					if (answer.isAccepted()) {
 						String Answer = answer.getBody();
-						output.add(Answer);
 						// System.out.println(Answer);
 						left = Answer.indexOf("<code>");
 						while (left > 0) {
@@ -136,9 +141,10 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 							int right = left + right_pre;
 							// System.out.println(right);
 							String sub = Answer.substring(left + 6, right - 1);
+							output.add(sub);
 							// System.out.println(sub1);
 							System.out.println(sub);
-							insertContent(sub,0);
+							//insertContent(sub,0);
 							// System.out.println("\n");
 							Answer = Answer.substring(right - 1);
 							left = Answer.indexOf("<code>");
@@ -147,6 +153,11 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 				}
 			}
 	
+		for (int x=0; x < output.size(); x++)
+		{
+			insertContent(output.get(x), count.get(x) );
+		}
+			
 		
 //		for (String add : output)
 //		{

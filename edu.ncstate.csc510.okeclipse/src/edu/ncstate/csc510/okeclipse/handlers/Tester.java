@@ -19,26 +19,27 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 public class Tester{
 public static void main(String[] args) { 
-	String javaClass = new String("$Hi did you get ittttttt$...$Hi did you get ittttttt$");
+	String javaClass = new String("$Hi did you get ittttttt$.$ge.$$Hi did you get ittttttt$");
+	String javaClassset = javaClass;
+	ArrayList<String> input = new ArrayList<String>();
+	ArrayList<Integer> count = new ArrayList<Integer>();
 	int left = javaClass.indexOf("$");
 	//System.out.println(left);
-	while (left >= 0)
-    	{
-    	String sub1 = javaClass.substring(left+1);
-    	int right_pre = sub1.indexOf("$");
-    	//System.out.println(right_pre);
-    	int right = left + right_pre;
-    	//System.out.println(right);
-    	String sub = javaClass.substring(left+1, right+1);
-    	//System.out.println(right);
-    	//System.out.println(sub1);
-    	System.out.println(sub);
-    	//input.add(sub);
-    	//System.out.println("\n");
-	    javaClass = javaClass.substring(right+2);
-	    //System.out.println(javaClass);
-    	left = javaClass.indexOf("$");
-    	}
+	int setpoint = javaClass.indexOf("$");
+	int left_1 = 0;
+	while (left_1 >= 0)
+	{	
+		count.add(setpoint);
+		String sub1 = javaClassset.substring(setpoint + 1);
+		int right_pre = sub1.indexOf("$");
+		int right = setpoint + right_pre + 1;
+		String sub = javaClassset.substring(right + 1);
+		left_1 = sub.indexOf("$");
+		if (left_1 >=0)
+		{
+			setpoint = right + left_1+1;
+		}
+	}
+	System.out.println(count);
 }
-
 }
