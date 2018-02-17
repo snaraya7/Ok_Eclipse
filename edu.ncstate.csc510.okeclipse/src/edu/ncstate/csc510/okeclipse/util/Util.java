@@ -1,10 +1,15 @@
 package edu.ncstate.csc510.okeclipse.util;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
+
+import edu.ncstate.csc510.okeclipse.views.OkEclipseView;
 
 /**
  * 
@@ -24,5 +29,21 @@ public class Util {
 		IDocumentProvider dp = ((ITextEditor) editor).getDocumentProvider();
 		IDocument doc = dp.getDocument(editor.getEditorInput());
 		return doc;
+	}
+
+	public static void showOkEclipseView() {
+		try {
+			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(OkEclipseView.ID);
+		} catch (PartInitException e) {
+		}
+	}
+
+	public static void showError(Exception e, String message) {
+		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+				MessageDialog.openError(activeShell, "Ok Eclipse", message + e.getMessage());
+			}
+		});
 	}
 }

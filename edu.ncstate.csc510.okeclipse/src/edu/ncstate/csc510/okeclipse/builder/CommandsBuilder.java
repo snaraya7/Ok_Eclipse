@@ -10,12 +10,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
-
 import edu.ncstate.csc510.okeclipse.model.OECommand;
 import edu.ncstate.csc510.okeclipse.resources.Resources;
+import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
@@ -27,6 +24,7 @@ public class CommandsBuilder {
 	public static void main(String[] args) {
 		System.out.println(getCommands());
 	}
+
 	private static final String FILENAME = "commands.csv";
 
 	private static final File commandsFile = new File(System.getProperty("user.dir") + File.separator + FILENAME);
@@ -40,7 +38,7 @@ public class CommandsBuilder {
 		return commandsFile;
 
 	}
-	
+
 	public static File getCommandsfile() {
 		return commandsFile;
 	}
@@ -62,13 +60,7 @@ public class CommandsBuilder {
 		try {
 			build();
 		} catch (Exception e) {
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-					MessageDialog.openError(activeShell, "Ok Eclipse",
-							"Error while loading commands " + e.getMessage());
-				}
-			});
+			Util.showError(e, "Error while loading commands ");
 		}
 
 	}
@@ -102,7 +94,6 @@ public class CommandsBuilder {
 		}
 
 	}
-	
 
 	public static List<OECommand> getCommands() {
 		return commands;

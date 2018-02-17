@@ -6,16 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -27,6 +28,8 @@ import com.sohelper.datatypes.StackoverflowPost;
 import com.sohelper.fetchers.GoogleFetcher;
 import com.sohelper.fetchers.StackoverflowFetcher;
 import com.sohelper.ui.QuestionPage;
+
+import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
@@ -45,7 +48,7 @@ public class SOAnswerBuilder {
 	 * @throws IOException
 	 * @throws PartInitException
 	 */
-	
+
 	public void build(List<String> questions) throws IOException, PartInitException {
 
 		IProgressMonitor monitor = new NullProgressMonitor();
@@ -57,38 +60,67 @@ public class SOAnswerBuilder {
 		content.append("OkayEclipse Recommendations");
 		content.append("</h2>");
 		for (String question : questions) {
-			
+
 			content.append("<table class=\"flatTable\">");
 			content.append("<tr class=\"titleTr\"><td class=\"titleTd\">");
 			content.append(question);
 			content.append("</td><td colspan=\"4\"></td>");
 			content.append("<tr class=\"headingTr\"><td>ACCEPTED</td><td>UPVOTES</td><td>SOLUTION</td></tr>");
-					
-			buildHTMLBodyContent(extractAnswers(question, monitor));  
+
+			buildHTMLBodyContent(extractAnswers(question, monitor));
 
 			content.append("</table><br></br>");
-			
+
 			String utubeUrl = "https://www.youtube.com/results?search_query=" + question;
 			content.append("<a target=\"_blank\" href=\"" + utubeUrl
 					+ "\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/2/2e/YoutubeLogoLink.png\" alt=\"Smiley face\"></a>");
-			
+
 		}
-		
+
 		content.append("</body></html>");
-		
+
 		write();
 
 		openBrowser();
 
 	}
 
+	public List<StackoverflowAnswer> extractAnswers(String question, IProgressMonitor monitor) {
+		List<StackoverflowAnswer> stackoverflowAnswers = new LinkedList<>();
 
-	public List<StackoverflowAnswer> extractAnswers(String question, IProgressMonitor monitor) throws IOException {
-		List<GoogleResult> googleResults = GoogleFetcher.getGoogleResults(question, monitor);
-		List<StackoverflowPost> stackoverflowPosts = StackoverflowFetcher.getStackoverflowPosts(googleResults, monitor);
-		QuestionPage questionPage = new CustomQuestionPage();
-		List<StackoverflowAnswer> stackoverflowAnswers = StackoverflowFetcher
-				.getStackoverflowAnswers(stackoverflowPosts, monitor, questionPage);
+		Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(activeShell);
+		try {
+			dialog.run(false, true, new IRunnableWithProgress() {
+
+				@Override
+				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+
+					monitor.beginTask("Fetching recommendations from Q&A repository...", 3);
+
+					List<GoogleResult> googleResults = GoogleFetcher.getGoogleResults(question, monitor);
+					List<StackoverflowPost> stackoverflowPosts;
+					try {
+						stackoverflowPosts = StackoverflowFetcher.getStackoverflowPosts(googleResults, monitor);
+						monitor.worked(1);
+						QuestionPage questionPage = new CustomQuestionPage();
+						stackoverflowAnswers.addAll(StackoverflowFetcher.getStackoverflowAnswers(stackoverflowPosts,
+								monitor, questionPage));
+						monitor.worked(2);
+						monitor.done();
+
+					} catch (IOException e) {
+						e.printStackTrace();
+						Util.showError(e, "Unable to get Q&A posts " + e.getMessage());
+					}
+
+				}
+			});
+		} catch (InvocationTargetException | InterruptedException e) {
+			e.printStackTrace();
+			Util.showError(e, "Unable to fetch from Q&A repository " + e.getMessage());
+		}
+
 		return stackoverflowAnswers;
 	}
 
@@ -123,14 +155,14 @@ public class SOAnswerBuilder {
 	private void buildHTMLBodyContent(List<StackoverflowAnswer> stackoverflowAnswers) {
 
 		for (StackoverflowAnswer answer : stackoverflowAnswers) {
-			
+
 			content.append("<tr><td>");
 			if (answer.isAccepted()) {
 				content.append("Yes");
 			} else {
 				content.append("No");
 			}
-			
+
 			content.append("</td>");
 			content.append("<td>");
 			content.append(answer.getVoteCount());

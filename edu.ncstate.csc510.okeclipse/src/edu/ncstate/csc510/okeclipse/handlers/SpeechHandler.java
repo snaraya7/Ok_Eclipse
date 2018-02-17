@@ -36,8 +36,8 @@ public class SpeechHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		// string to integer
-		
+		Util.showOkEclipseView();
+
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 		Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 
@@ -112,7 +112,7 @@ public class SpeechHandler extends AbstractHandler {
 		if (Util.isNullString(commandId)) {
 
 			Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-			MessageDialog.openInformation(activeShell, "Ok Eclipse", "Sorry we don't understand '" + spokenText
+			MessageDialog.openInformation(activeShell, "Ok Eclipse", "Couldn't catch that! " + spokenText
 					+ "', Feel free to add/customize commands at " + CommandsBuilder.getCommandsfile() + ".");
 			return;
 		}
