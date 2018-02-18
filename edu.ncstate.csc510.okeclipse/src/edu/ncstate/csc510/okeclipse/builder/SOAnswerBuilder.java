@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class SOAnswerBuilder {
 	private static final String FILENAME = "soresponse.html";
 
 	private StringBuffer content = new StringBuffer();
-
 	/**
 	 * @author M.S.Karthik
 	 * @param questions
@@ -54,8 +54,46 @@ public class SOAnswerBuilder {
 		IProgressMonitor monitor = new NullProgressMonitor();
 
 		content.append("<html>");
-		content.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>");
-		content.append("</head><body>");
+		content.append("<style>");
+		content.append("* {\r\n");
+		content.append("  margin: 0;\r\n");
+		content.append("  padding: 0;\r\n");
+		content.append("  font-family: Lato;\r\n");
+		content.append("}\r\n");
+		content.append("body {\r\n");
+		content.append("  padding: 0px;\r\n");
+		content.append("  background: #e5e2e6;\r\n");
+		content.append("}\r\n");
+		content.append(".flatTable {\r\n");
+		content.append("  width: 100%;\r\n");
+		content.append("  min-width: 500px;\r\n");
+		content.append("  border-collapse: collapse;\r\n");
+		content.append("  font-weight: bold;\r\n");
+		content.append("  color: #6b6b6b;\r\n");
+		content.append("}\r\n");
+		content.append(".flatTable tr {\r\n"); 
+		content.append("  height: 50px;\r\n");
+		content.append("  background: #d4d1d5;\r\n");
+		content.append("  border-bottom: rgba(0, 0, 0, 0.05) 1px solid;\r\n");
+		content.append("}\r\n");
+		content.append(".flatTable td {\r\n");
+		content.append("  box-sizing: border-box;\r\n"); 
+		content.append("  padding-left: 30px;\r\n"); 
+		content.append("}\r\n"); 
+		content.append(".flatTable .titleTr {\r\n"); 
+		content.append("  height: 70px;\r\n"); 
+		content.append("  color: #f6f3f7;\r\n"); 
+		content.append("  background: #418a95;\r\n"); 
+		content.append("  border: 0px solid;\r\n"); 
+		content.append("}\r\n"); 
+		content.append(".flatTable .headingTr {\r\n"); 
+		content.append("  height: 30px;\r\n"); 
+		content.append("  background: #63acb7;\r\n"); 
+		content.append("  color: #f6f3f7;\r\n"); 
+		content.append("  font-size: 8pt;\r\n"); 
+		content.append("  border: 0px solid;\r\n"); 
+		content.append("}");
+		content.append("</style></head><body>");
 		content.append("<h2>");
 		content.append("OkayEclipse Recommendations");
 		content.append("</h2>");
@@ -145,7 +183,6 @@ public class SOAnswerBuilder {
 		} catch (IOException e) {
 			throw e;
 		}
-
 	}
 
 	private static File getResponseFile() {
@@ -169,6 +206,8 @@ public class SOAnswerBuilder {
 			content.append("</td>");
 			content.append("<td>");
 			content.append(answer.getBody());
+			content.append("<br /><br />");
+			content.append(answer.getUrl());
 			content.append("</td></tr>");
 		}
 
