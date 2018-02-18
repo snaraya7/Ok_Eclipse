@@ -2,7 +2,7 @@ package edu.ncstate.csc510.okeclipse.views;
 
 import java.awt.Desktop;
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -13,6 +13,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -23,15 +24,16 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
@@ -39,8 +41,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.ncstate.csc510.okeclipse.builder.CommandsBuilder;
-import edu.ncstate.csc510.okeclipse.handlers.SpeechHandler;
 import edu.ncstate.csc510.okeclipse.model.OECommand;
+import edu.ncstate.csc510.okeclipse.resources.Resources;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
@@ -88,15 +90,15 @@ public class OkEclipseView extends ViewPart {
 		public Image getImage(Object obj) {
 			return workbench.getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT);
 		}
+
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 
-
 		TableViewer viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new OECommandContentProvider());
-		viewer.setLabelProvider(new OECommandLabelProvider());
+		viewer.setLabelProvider(new OECommandLabelProvider(parent, viewer));
 
 		Table table = viewer.getTable();
 		table.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -104,10 +106,14 @@ public class OkEclipseView extends ViewPart {
 		// Add the First column : Command
 		TableColumn tc = new TableColumn(table, SWT.LEFT);
 		tc.setText("Command");
+		tc.setImage(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_DEF_VIEW)
+				.createImage());
 
 		// Add the Second column : Command ID
 		tc = new TableColumn(table, SWT.LEFT);
 		tc.setText("Command ID");
+		tc.setImage(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD)
+				.createImage());
 
 		viewer.setInput(CommandsBuilder.getCommands());
 
@@ -129,7 +135,6 @@ public class OkEclipseView extends ViewPart {
 		// hookDoubleClickAction();
 		contributeToActionBars();
 	}
-
 
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
@@ -183,7 +188,7 @@ public class OkEclipseView extends ViewPart {
 		action1.setText("Edit");
 		action1.setToolTipText("Open file to edit commands!");
 		action1.setImageDescriptor(
-				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+				PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_UP));
 
 		// action2 = new Action() {
 		// public void run() {
@@ -236,10 +241,43 @@ class ColumnConst {
  * This class provides the labels for OECommandsTable
  */
 
-class OECommandLabelProvider implements ITableLabelProvider {
+class OECommandLabelProvider extends ColumnLabelProvider implements ITableLabelProvider {
+
+	private Composite parent;
+	private TableViewer viewer;
 
 	// Constructs a OECommandLabelProvider
-	public OECommandLabelProvider() {
+	public OECommandLabelProvider(Composite parent, TableViewer viewer) {
+		this.parent = parent;
+		this.viewer = viewer;
+	}
+
+	@Override
+	public Image getImage(Object element) {
+		return new Image(parent.getDisplay(), Resources.class.getResourceAsStream("sample@2x.png"));
+	}
+
+	@Override
+	public Font getFont(Object element) {
+
+		ArrayList list = (ArrayList) viewer.getInput();
+		int index = list.indexOf(element);
+		if ((index % 2) == 0) {
+			return new Font(parent.getDisplay(), "Arial", 10, SWT.ITALIC);
+		} else {
+			return new Font(parent.getDisplay(), "Arial", 10, SWT.BOLD);
+		}
+
+	}
+
+	public Color getBackground(Object element) {
+		ArrayList list = (ArrayList) viewer.getInput();
+		int index = list.indexOf(element);
+		if ((index % 2) == 0) {
+			return parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND);
+		} else {
+			return null;
+		}
 	}
 
 	/**
