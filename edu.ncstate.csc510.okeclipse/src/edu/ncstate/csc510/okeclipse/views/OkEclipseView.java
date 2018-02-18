@@ -220,7 +220,7 @@ public class OkEclipseView extends ViewPart {
  */
 
 class ColumnConst {
-  // Column constants
+  // Column Variable constants
   public static final int COLUMN_COMMAND_NAME = 0;
 
   public static final int COLUMN_COMMAND_ID = 1;
