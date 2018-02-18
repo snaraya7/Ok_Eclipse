@@ -9,7 +9,7 @@ Drop this ![plugin jar](https://github.com/snaraya7/Ok_Eclipse/tree/master/plugi
 <Enter>
 ![**currently supported voice commands**](https://github.com/snaraya7/Ok_Eclipse/blob/master/edu.ncstate.csc510.okeclipse/src/edu/ncstate/csc510/okeclipse/resources/commands.csv)
 
-**And ya one more thing, please use dedicated microphone!**.
+**And ya one more thing, please use dedicated a _microphone_.**
 
 
 
