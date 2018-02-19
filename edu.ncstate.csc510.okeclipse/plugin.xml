@@ -23,6 +23,16 @@
             id="edu.ncstate.csc510.okeclipse.injectcode"
             name="Inject code">
       </command>
+      <command
+            categoryId="edu.ncstate.csc510.okeclipse.commands.category"
+            id="edu.ncstate.csc510.okeclipse.injectmain"
+            name="main">
+      </command>
+      <command
+            categoryId="edu.ncstate.csc510.okeclipse.commands.category"
+            id="edu.ncstate.csc510.okeclipse.injectinterface"
+            name="interface">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -37,6 +47,14 @@
       <handler
             class="edu.ncstate.csc510.okeclipse.handlers.InjectCodeHandler"
             commandId="edu.ncstate.csc510.okeclipse.injectcode">
+      </handler>
+      <handler
+            class="edu.ncstate.csc510.okeclipse.handlers.InjectMainHandler"
+            commandId="edu.ncstate.csc510.okeclipse.injectmain">
+      </handler>
+      <handler
+            class="edu.ncstate.csc510.okeclipse.handlers.InjectInterfaceHandler"
+            commandId="edu.ncstate.csc510.okeclipse.injectinterface">
       </handler>
    </extension>
    <extension
@@ -64,6 +82,18 @@
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M2+C">
+      </key>
+      <key
+            commandId="edu.ncstate.csc510.okeclipse.injectmain"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+B">
+      </key>
+      <key
+            commandId="edu.ncstate.csc510.okeclipse.injectinterface"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+N">
       </key>
    </extension>
    <extension
@@ -140,7 +170,7 @@
       <view
             category="edu.ncstate.csc510.okeclipse"
             class="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
-            icon="icons/sample.png"
+            icon="icons/sample@2x.png"
             id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
             inject="true"
             name="Ok Eclipse">
