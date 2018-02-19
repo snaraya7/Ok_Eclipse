@@ -21,6 +21,7 @@ import edu.ncstate.csc510.okeclipse.builder.CustomDictionaryBuilder;
  *
  */
 public class VoiceRecognizer {
+	
 
 	private static LiveSpeechRecognizer recognizer;
 
@@ -52,6 +53,7 @@ public class VoiceRecognizer {
 
 		Map<String, String> customDictionary = new CustomDictionaryBuilder().build();
 
+		System.out.println(getCustomDictionaryFile()+" -- ??>>>");
 		try (PrintWriter out = new PrintWriter(new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(getCustomDictionaryFile()), StandardCharsets.UTF_8)))) {
 
@@ -69,7 +71,7 @@ public class VoiceRecognizer {
 	}
 
 	private static File getCustomDictionaryFile() {
-		return new File(System.getProperty("user.dir") + File.separator + FILENAME);
+		return new File(System.getProperty("user.home") + File.separator + FILENAME);
 	}
 
 	private static boolean isDictionaryNeeded() {

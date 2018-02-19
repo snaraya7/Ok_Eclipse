@@ -20,7 +20,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	/**
 	 * Just return main method string
-	 * 
+	 *
 	 * @author charan
 	 */
 	@Override
@@ -39,7 +39,6 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 		String getSetResult = javaSourceCode.substring(0, javaSourceCode.lastIndexOf("}"));
 		List<String> getSetResultLines = new ArrayList<String>();
 
-		// Extracting names and types of members
 		String JSC_temp = javaSourceCode.replaceAll("public", "").replaceAll("private", "").replaceAll("\r\n", "");
 		JSC_temp = JSC_temp.substring(JSC_temp.indexOf("{") + 1, JSC_temp.length() - 1);
 		int char_flag = 0;
@@ -78,7 +77,6 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 		JSC_modified = JSC_modified.replaceAll("\\s+", "").replaceAll(";", "");
 		List<String> JSC_memberList = new ArrayList<String>(Arrays.asList(JSC_modified.split("#")));
 
-		// Preparing the getter and setter method strings
 		for (int i = 0; i < JSC_memberList.size(); i += 2) {
 			String member_type = JSC_memberList.get(i);
 			String member_identifier = JSC_memberList.get(i + 1);
@@ -102,7 +100,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	/**
 	 * Refer interface_requirement.txt in explanation package
-	 * 
+	 *
 	 * @author charan
 	 */
 	@Override
@@ -229,6 +227,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 	private String getCode(List<StackoverflowAnswer> answers) {
 
 		String content = "";
+
 		for (StackoverflowAnswer answer : answers) {
 
 			if (answer.isAccepted()) {
@@ -238,6 +237,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 					try {
 						content = answer.getBody().substring(answer.getBody().indexOf("<code>") + 6,
 								answer.getBody().indexOf("</code>") - 7);
+
 					} catch (Exception e) {
 
 					}
