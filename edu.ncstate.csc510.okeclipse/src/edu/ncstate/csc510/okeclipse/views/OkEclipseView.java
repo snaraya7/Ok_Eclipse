@@ -28,11 +28,13 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
@@ -95,6 +97,15 @@ public class OkEclipseView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
+
+//		parent.setLayout(new RowLayout());
+//
+//		Composite top = new Composite(parent, SWT.NONE);
+//
+//		Label label = new Label(top, SWT.LEFT);
+//		label.setText("Ok eclipse log : " + Util.getLogFile());
+//
+//		top.setLayout(new RowLayout());
 
 		TableViewer viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setContentProvider(new OECommandContentProvider());

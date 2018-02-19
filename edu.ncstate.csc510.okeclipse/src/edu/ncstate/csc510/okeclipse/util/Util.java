@@ -52,8 +52,8 @@ public class Util {
 	public static void showOkEclipseView() {
 		try {
 
-//			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().hideView(
-//					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(OkEclipseView.ID));
+			// PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().hideView(
+			// PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(OkEclipseView.ID));
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(OkEclipseView.ID);
 
 		} catch (PartInitException e) {
@@ -69,9 +69,13 @@ public class Util {
 		});
 	}
 
-	public static void appendToLog(String entry) {
+	private static File logFile = new File(System.getProperty("user.dir") + File.separator + "okeclipselog.csv");
 
-		File file = new File(System.getProperty("user.dir") + File.separator + "okeclipselog.csv");
+	public static File getLogFile() {
+		return logFile;
+	}
+
+	public static void appendToLog(String entry) {
 
 		String log = System.getProperty("user.name") + "," + entry + "," + new Date(System.currentTimeMillis()) + "\n";
 
@@ -79,11 +83,11 @@ public class Util {
 		BufferedWriter bw = null;
 		try {
 
-			if (!file.exists()) {
-				file.createNewFile();
+			if (!logFile.exists()) {
+				logFile.createNewFile();
 			}
 
-			fw = new FileWriter(file.getAbsoluteFile(), true);
+			fw = new FileWriter(logFile.getAbsoluteFile(), true);
 			bw = new BufferedWriter(fw);
 
 			bw.write(log);

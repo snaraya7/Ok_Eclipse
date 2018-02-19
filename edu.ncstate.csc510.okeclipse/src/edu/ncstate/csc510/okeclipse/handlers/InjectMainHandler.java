@@ -10,27 +10,25 @@ import org.eclipse.ui.handlers.IHandlerService;
 import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
-/**
- * 
- * @author ncshr
- *
- */
-public class InjectCodeHandler extends AbstractHandler {
+public class InjectMainHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
-		ISoundProgrammer programmer = new SoundProgrammerImpl();
+		ISoundProgrammer iSoundProgrammer = new SoundProgrammerImpl();
 
 		try {
-			programmer.injectCode(Util.getCurrentEditorContent().get());
+			iSoundProgrammer.insertContent(iSoundProgrammer.generateMainMethod(),
+					Util.getCurrentEditorContent().get().length() - 2);
 			IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 			IHandlerService handlerService = (IHandlerService) window.getService(IHandlerService.class);
 			handlerService.executeCommand("org.eclipse.jdt.ui.edit.text.java.format", null);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			Util.showError(e, e.getMessage());
 		}
 
 		return null;
 	}
+
 }
