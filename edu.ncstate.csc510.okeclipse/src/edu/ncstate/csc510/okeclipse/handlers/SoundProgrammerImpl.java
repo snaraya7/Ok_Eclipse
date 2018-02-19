@@ -2,6 +2,7 @@ package edu.ncstate.csc510.okeclipse.handlers;
 
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +20,16 @@ import edu.ncstate.csc510.okeclipse.builder.SOAnswerBuilder;
 import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
+
+/**
+ * 
+ * This class contains the implementation of the Sound Programmer features
+ *
+ */
 public class SoundProgrammerImpl implements ISoundProgrammer {
 
 	/**
-	 * Just return main method string
+	 * Returns the main method that will be displayed on the console
 	 * 
 	 * @author charan
 	 */
