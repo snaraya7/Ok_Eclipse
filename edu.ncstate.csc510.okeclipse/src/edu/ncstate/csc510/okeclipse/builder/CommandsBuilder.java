@@ -10,12 +10,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.core.commands.Command;
 
 import edu.ncstate.csc510.okeclipse.model.OECommand;
 import edu.ncstate.csc510.okeclipse.resources.Resources;
+import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
@@ -23,6 +22,10 @@ import edu.ncstate.csc510.okeclipse.resources.Resources;
  *
  */
 public class CommandsBuilder {
+
+	public static void main(String[] args) {
+		System.out.println(getCommands());
+	}
 
 	private static final String FILENAME = "commands.csv";
 
@@ -37,7 +40,7 @@ public class CommandsBuilder {
 		return commandsFile;
 
 	}
-	
+
 	public static File getCommandsfile() {
 		return commandsFile;
 	}
@@ -59,13 +62,7 @@ public class CommandsBuilder {
 		try {
 			build();
 		} catch (Exception e) {
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-					MessageDialog.openError(activeShell, "Ok Eclipse",
-							"Error while loading commands " + e.getMessage());
-				}
-			});
+			Util.showError(e, "Error while loading commands ");
 		}
 
 	}
@@ -86,6 +83,8 @@ public class CommandsBuilder {
 
 			}
 
+			appendEclipseCommands();
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -96,6 +95,16 @@ public class CommandsBuilder {
 					throw e;
 				}
 			}
+		}
+
+	}
+
+	private static void appendEclipseCommands() {
+
+		Command[] eclipseCommands = Util.getEclipseCommands();
+
+		for (Command c : eclipseCommands) {
+			commands.add(new OECommand("<NOT ASSIGNED>", c.getId()));
 		}
 
 	}

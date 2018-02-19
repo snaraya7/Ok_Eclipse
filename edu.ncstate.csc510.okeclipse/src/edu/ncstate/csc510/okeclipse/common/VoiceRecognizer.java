@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.ncstate.csc510.okeclipse.builder.CustomDictionaryBuilder;
@@ -19,31 +21,39 @@ import edu.ncstate.csc510.okeclipse.builder.CustomDictionaryBuilder;
  *
  */
 public class VoiceRecognizer {
+	
 
 	private static LiveSpeechRecognizer recognizer;
 
 	private static final String FILENAME = "okeclipse.dict";
 
-	public static void start() throws IOException {
+	public static void start(IProgressMonitor monitor) throws IOException {
 
 		if (isDictionaryNeeded()) {
+			monitor.setTaskName("Preparing custom speech dictionary...");
 			writeDictionary();
+
 		}
 
+		monitor.worked(1);
+		monitor.setTaskName("Initializing configuration..");
 		Configuration configuration = new Configuration();
 		configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
-		System.out.println(getCustomDictionaryFile().toURI().toURL().toString());
 		configuration.setDictionaryPath(getCustomDictionaryFile().toURI().toURL().toString());
 		// configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
 		configuration.setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
 		recognizer = new LiveSpeechRecognizer(configuration);
+		monitor.worked(2);
+		monitor.setTaskName("Enabling recognition (please wait)");
 		recognizer.startRecognition(true);
+		monitor.worked(3);
 	}
 
 	private static void writeDictionary() throws IOException {
 
 		Map<String, String> customDictionary = new CustomDictionaryBuilder().build();
 
+		System.out.println(getCustomDictionaryFile()+" -- ??>>>");
 		try (PrintWriter out = new PrintWriter(new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(getCustomDictionaryFile()), StandardCharsets.UTF_8)))) {
 
@@ -61,7 +71,7 @@ public class VoiceRecognizer {
 	}
 
 	private static File getCustomDictionaryFile() {
-		return new File(System.getProperty("user.dir") + File.separator + FILENAME);
+		return new File(System.getProperty("user.home") + File.separator + FILENAME);
 	}
 
 	private static boolean isDictionaryNeeded() {
