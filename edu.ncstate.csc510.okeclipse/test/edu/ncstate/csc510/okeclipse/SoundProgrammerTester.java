@@ -13,6 +13,7 @@ import org.junit.Test;
 
 //Checking for a change
 		@Test
+		//Function is called to test the extract function
 		public void testExtract() {
 			ISoundProgrammer soundprogram = new SoundProgrammerImpl();
 			String exp_output = new String("public class Apple {\r\n" +
@@ -61,6 +62,7 @@ import org.junit.Test;
 	}
 
 	@Test
+	//Test function is called to test implement interface
 	public void testImplementInterface() {
 		ISoundProgrammer soundprogram = new SoundProgrammerImpl();
 		String exp_output = new String("public class Car implements Vehicle {\r\n" +
