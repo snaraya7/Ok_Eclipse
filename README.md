@@ -15,7 +15,7 @@ After restarting eclipse you should see the **Ok Eclipse** view.
 **And ya one more thing, please use dedicated a _microphone_.**
 
 # Evaluate
-We value your views please [take this short survey](tiny.cc/okeclipsesurvey).
+We value your views please [take this short survey](https://tiny.cc/okeclipsesurvey).
 
 
 
