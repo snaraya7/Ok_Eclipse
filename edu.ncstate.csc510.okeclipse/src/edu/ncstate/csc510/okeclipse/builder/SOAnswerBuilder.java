@@ -48,7 +48,7 @@ public class SOAnswerBuilder {
 	 * @throws IOException
 	 * @throws PartInitException
 	 */
-
+// function to get the page from stackoverflow and display it in a readable form
 	public void build(List<String> questions) throws IOException, PartInitException {
 
 		IProgressMonitor monitor = new NullProgressMonitor();
