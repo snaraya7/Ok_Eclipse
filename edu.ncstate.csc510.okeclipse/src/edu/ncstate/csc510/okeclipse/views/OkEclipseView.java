@@ -362,7 +362,7 @@ class OECommandLabelProvider extends ColumnLabelProvider implements ITableLabelP
 }
 
 /**
- * This class provides the content for the table
+ * This class provides the content for the OECommandsTable
  */
 
 class OECommandContentProvider implements IStructuredContentProvider {
