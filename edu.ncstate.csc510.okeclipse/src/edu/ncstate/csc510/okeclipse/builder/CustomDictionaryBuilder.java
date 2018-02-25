@@ -19,9 +19,6 @@ import edu.ncstate.csc510.okeclipse.util.Util;
  */
 public class CustomDictionaryBuilder {
 
-	public static void main(String[] args) {
-		System.out.println("Working Directory = " + System.getProperty("user.dir"));
-	}
 
 	private Map<String, String> fullDictionary = new HashMap<>();
 	private Map<String, String> customDictionary = new HashMap<>();

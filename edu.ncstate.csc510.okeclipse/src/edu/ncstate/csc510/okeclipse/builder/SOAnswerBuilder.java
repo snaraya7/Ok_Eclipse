@@ -186,7 +186,7 @@ public class SOAnswerBuilder {
 	}
 
 	private static File getResponseFile() {
-		return new File(System.getProperty("user.dir") + File.separator + FILENAME);
+		return new File(Util.getPrefixPath() + FILENAME);
 	}
 
 	private void buildHTMLBodyContent(List<StackoverflowAnswer> stackoverflowAnswers) {

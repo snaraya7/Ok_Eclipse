@@ -26,6 +26,19 @@ import edu.ncstate.csc510.okeclipse.views.OkEclipseView;
  */
 public class Util {
 
+	public static String getPrefixPath() {
+
+		String prefixPath = System.getProperty("user.dir") + File.separator + "ok_eclipse" + File.separator;
+
+		File folder = new File(prefixPath);
+
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		return prefixPath;
+	}
+
 	public static Command[] getEclipseCommands() {
 
 		CommandManager commandManager = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
@@ -69,7 +82,7 @@ public class Util {
 		});
 	}
 
-	private static File logFile = new File(System.getProperty("user.dir") + File.separator + "okeclipselog.csv");
+	private static File logFile = new File(Util.getPrefixPath() + "okeclipselog.csv");
 
 	public static File getLogFile() {
 		return logFile;

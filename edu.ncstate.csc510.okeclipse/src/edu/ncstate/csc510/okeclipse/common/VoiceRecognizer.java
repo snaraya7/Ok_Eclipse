@@ -14,6 +14,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.ncstate.csc510.okeclipse.builder.CustomDictionaryBuilder;
+import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
@@ -71,7 +72,7 @@ public class VoiceRecognizer {
 	}
 
 	private static File getCustomDictionaryFile() {
-		return new File(System.getProperty("user.home") + File.separator + FILENAME);
+		return new File(Util.getPrefixPath() + FILENAME);
 	}
 
 	private static boolean isDictionaryNeeded() {
