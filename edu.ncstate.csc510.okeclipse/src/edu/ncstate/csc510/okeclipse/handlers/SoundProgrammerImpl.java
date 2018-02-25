@@ -106,7 +106,7 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 	}
 
 	/**
-	 * Refer interface_requirement.txt in explanation package
+	 * Returns the skeleton of class implementing the interface
 	 *
 	 * @author charan
 	 */
