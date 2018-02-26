@@ -29,7 +29,7 @@ public class CommandsBuilder {
 
 	private static final String FILENAME = "commands.csv";
 
-	private static final File commandsFile = new File(System.getProperty("user.dir") + File.separator + FILENAME);
+	private static final File commandsFile = new File(Util.getPrefixPath() + FILENAME);
 
 	private static File getCommandsFile() throws IOException {
 
