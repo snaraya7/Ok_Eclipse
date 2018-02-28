@@ -42,13 +42,14 @@ public class SOAnswerBuilder {
 	private static final String FILENAME = "soresponse.html";
 
 	private StringBuffer content = new StringBuffer();
+
 	/**
 	 * @author M.S.Karthik
 	 * @param questions
 	 * @throws IOException
 	 * @throws PartInitException
 	 */
-// function to get the page from stackoverflow and display it in a readable form
+	// function to get the page from stackoverflow and display it in a readable form
 	public void build(List<String> questions) throws IOException, PartInitException {
 
 		IProgressMonitor monitor = new NullProgressMonitor();
@@ -71,27 +72,27 @@ public class SOAnswerBuilder {
 		content.append("  font-weight: bold;\r\n");
 		content.append("  color: #6b6b6b;\r\n");
 		content.append("}\r\n");
-		content.append(".flatTable tr {\r\n"); 
+		content.append(".flatTable tr {\r\n");
 		content.append("  height: 50px;\r\n");
 		content.append("  background: #d4d1d5;\r\n");
 		content.append("  border-bottom: rgba(0, 0, 0, 0.05) 1px solid;\r\n");
 		content.append("}\r\n");
 		content.append(".flatTable td {\r\n");
-		content.append("  box-sizing: border-box;\r\n"); 
-		content.append("  padding-left: 30px;\r\n"); 
-		content.append("}\r\n"); 
-		content.append(".flatTable .titleTr {\r\n"); 
-		content.append("  height: 70px;\r\n"); 
-		content.append("  color: #f6f3f7;\r\n"); 
-		content.append("  background: #418a95;\r\n"); 
-		content.append("  border: 0px solid;\r\n"); 
-		content.append("}\r\n"); 
-		content.append(".flatTable .headingTr {\r\n"); 
-		content.append("  height: 30px;\r\n"); 
-		content.append("  background: #63acb7;\r\n"); 
-		content.append("  color: #f6f3f7;\r\n"); 
-		content.append("  font-size: 8pt;\r\n"); 
-		content.append("  border: 0px solid;\r\n"); 
+		content.append("  box-sizing: border-box;\r\n");
+		content.append("  padding-left: 30px;\r\n");
+		content.append("}\r\n");
+		content.append(".flatTable .titleTr {\r\n");
+		content.append("  height: 70px;\r\n");
+		content.append("  color: #f6f3f7;\r\n");
+		content.append("  background: #418a95;\r\n");
+		content.append("  border: 0px solid;\r\n");
+		content.append("}\r\n");
+		content.append(".flatTable .headingTr {\r\n");
+		content.append("  height: 30px;\r\n");
+		content.append("  background: #63acb7;\r\n");
+		content.append("  color: #f6f3f7;\r\n");
+		content.append("  font-size: 8pt;\r\n");
+		content.append("  border: 0px solid;\r\n");
 		content.append("}");
 		content.append("</style></head><body>");
 		content.append("<h2>");
@@ -141,9 +142,22 @@ public class SOAnswerBuilder {
 					try {
 						stackoverflowPosts = StackoverflowFetcher.getStackoverflowPosts(googleResults, monitor);
 						monitor.worked(1);
-						QuestionPage questionPage = new CustomQuestionPage();
+						CustomQuestionPage questionPage = new CustomQuestionPage();
 						stackoverflowAnswers.addAll(StackoverflowFetcher.getStackoverflowAnswers(stackoverflowPosts,
 								monitor, questionPage));
+
+						if (stackoverflowAnswers.isEmpty()) {
+							questionPage.setUpvoted(false);
+							stackoverflowAnswers.addAll(StackoverflowFetcher.getStackoverflowAnswers(stackoverflowPosts,
+									monitor, questionPage));
+						}
+
+						if (stackoverflowAnswers.isEmpty()) {
+							questionPage.setAccepted(false);
+							stackoverflowAnswers.addAll(StackoverflowFetcher.getStackoverflowAnswers(stackoverflowPosts,
+									monitor, questionPage));
+						}
+
 						monitor.worked(2);
 						monitor.done();
 
@@ -215,14 +229,25 @@ public class SOAnswerBuilder {
 
 	class CustomQuestionPage extends QuestionPage {
 
+		private boolean accepted = true;
+		private boolean upvoted = true;
+
+		public void setAccepted(boolean accepted) {
+			this.accepted = accepted;
+		}
+
+		public void setUpvoted(boolean upvoted) {
+			this.upvoted = upvoted;
+		}
+
 		@Override
 		public boolean isAcceptedOnly() {
-			return true;
+			return accepted;
 		}
 
 		@Override
 		public boolean isUpVotedOnly() {
-			return true;
+			return upvoted;
 		}
 	}
 
