@@ -16,7 +16,7 @@ Enabling Voice Input to augment User Experience in Integrated Development Enviro
 
 ## Demo
 
-![Video](https://youtu.be/u0l9zw57hH8)
+[Youtube video](https://youtubevideourl)
 
 # Evaluate
 We value your views please [take this short survey](https://tiny.cc/okeclipsesurvey).
