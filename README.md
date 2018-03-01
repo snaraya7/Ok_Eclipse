@@ -6,20 +6,18 @@ Enabling Voice Input to augment User Experience in Integrated Development Enviro
 
 ## Installing Ok Eclipse
 
-1. Download & extract this [eclipse.zip](https://github.com/snaraya7/Ok_Eclipse/tree/master/plugins). 
+1. Download & extract this [ok_eclipse.zip](https://tiny.cc/downloadokeclipse). 
 1. Then run the executable **eclipse.exe** inside the extracted folder.
 1. Once your eclipse workbench is loaded you can see the **Ok Eclipse** view to try various voice commands.
   
-![](https://github.com/snaraya7/Ok_Eclipse/blob/master/img/commands.png)
-
 **And ya one more thing, please use a dedicated _microphone_ in a noise free environment.**
 
 ## Demo
 
-[Youtube video](https://youtu.be/u0l9zw57hH8)
+[Youtube video](https://youtu.be/34EYSdmBDMs)
 
 # Evaluate
-We value your views please [take this short survey](https://tiny.cc/okeclipsesurvey).
+We value your views please book an available slot [here:](https://tiny.cc/okeclipseeval).
 
 
 
