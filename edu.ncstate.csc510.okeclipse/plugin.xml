@@ -170,7 +170,7 @@
       <view
             category="edu.ncstate.csc510.okeclipse"
             class="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
-            icon="icons/sample@2x.png"
+            icon="src/edu/ncstate/csc510/okeclipse/resources/sample@2x.png"
             id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
             inject="true"
             name="Ok Eclipse">

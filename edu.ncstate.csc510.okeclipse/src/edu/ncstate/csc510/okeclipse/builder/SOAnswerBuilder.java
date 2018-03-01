@@ -96,7 +96,7 @@ public class SOAnswerBuilder {
 		content.append("}");
 		content.append("</style></head><body>");
 		content.append("<h2>");
-		content.append("OkayEclipse Recommendations");
+		content.append("Ok Eclipse Recommendations");
 		content.append("</h2>");
 		for (String question : questions) {
 
