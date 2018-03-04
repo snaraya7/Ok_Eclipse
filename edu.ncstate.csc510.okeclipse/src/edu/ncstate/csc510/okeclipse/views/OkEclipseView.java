@@ -28,10 +28,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -362,7 +359,7 @@ class OECommandLabelProvider extends ColumnLabelProvider implements ITableLabelP
 }
 
 /**
- * This class provides the content for the table
+ * This class provides the content for the OECommandsTable
  */
 
 class OECommandContentProvider implements IStructuredContentProvider {
