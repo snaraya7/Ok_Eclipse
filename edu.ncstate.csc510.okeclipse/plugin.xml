@@ -182,7 +182,7 @@
       <view
             category="edu.ncstate.csc510.okeclipse"
             class="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
-            icon="icons/sample@2x.png"
+            icon="src/edu/ncstate/csc510/okeclipse/resources/sample@2x.png"
             id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
             inject="true"
             name="Ok Eclipse">
@@ -195,6 +195,20 @@
             inject="true"
             name="Recommendation View">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="edu.ncstate.csc510.okeclipse.preferences.OkEclipsePreferencePage"
+            id="edu.ncstate.csc510.okeclipse.preferences.OkEclipsePreferencePage"
+            name="OkEclipse Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="edu.ncstate.csc510.okeclipse.preferences.PreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>
