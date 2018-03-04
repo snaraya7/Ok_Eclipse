@@ -151,9 +151,21 @@
                relative="org.eclipse.ui.views.ProblemView">
          </view>
       </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="edu.ncstate.csc510.okeclipse.views.RecommendationView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
       <contexts
             file="contexts.xml">
       </contexts>
@@ -174,6 +186,14 @@
             id="edu.ncstate.csc510.okeclipse.views.OkEclipseView"
             inject="true"
             name="Ok Eclipse">
+      </view>
+      <view
+            category="edu.ncstate.csc510.okeclipse"
+            class="edu.ncstate.csc510.okeclipse.views.RecommendationView"
+            icon="icons/sample.png"
+            id="edu.ncstate.csc510.okeclipse.views.RecommendationView"
+            inject="true"
+            name="Recommendation View">
       </view>
    </extension>
 
