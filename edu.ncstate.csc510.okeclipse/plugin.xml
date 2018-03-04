@@ -176,5 +176,19 @@
             name="Ok Eclipse">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="edu.ncstate.csc510.okeclipse.preferences.OkEclipsePreferencePage"
+            id="edu.ncstate.csc510.okeclipse.preferences.OkEclipsePreferencePage"
+            name="OkEclipse Preferences">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="edu.ncstate.csc510.okeclipse.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>
