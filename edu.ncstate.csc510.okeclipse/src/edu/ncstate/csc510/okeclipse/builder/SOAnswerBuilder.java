@@ -101,14 +101,24 @@ public class SOAnswerBuilder {
 		for (String question : questions) {
 
 			content.append("<table class=\"flatTable\">");
-			content.append("<tr class=\"titleTr\"><td class=\"titleTd\">");
+			content.append("<tr class=\"titleTr\">");
+			content.append("<td class=\"titleTd\">");
 			content.append(question);
-			content.append("</td><td colspan=\"4\"></td>");
-			content.append("<tr class=\"headingTr\"><td>ACCEPTED</td><td>UPVOTES</td><td>SOLUTION</td></tr>");
+			content.append("</td>");
+			content.append("<td colspan=\"4\">");
+			content.append("</td>");
+			content.append("<tr class=\"headingTr\">");
+			content.append("<td>ACCEPTED</td>");
+			content.append("<td>UPVOTES</td>");
+			content.append("<td>");
+			content.append("SOLUTION");
+			content.append("</td>");
+			content.append("</tr>");
 
 			buildHTMLBodyContent(extractAnswers(question, monitor));
 
-			content.append("</table><br></br>");
+			content.append("</table>");
+			content.append("<br></br>");
 
 			String utubeUrl = "https://www.youtube.com/results?search_query=" + question;
 			content.append("<a target=\"_blank\" href=\"" + utubeUrl
