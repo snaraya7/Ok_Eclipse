@@ -1,9 +1,6 @@
 
 # Ok Eclipse - CSC 510 Software Engineering (Spring 2018) project - Group 'O' <Enter>[](https://github.com/snaraya7/Ok_Eclipse/blob/master/img/logo.png) 
   
-## About
-Enabling Voice Input to augment User Experience in Integrated Development Environment.
-
 ## Installing Ok Eclipse
 
 1. Download & extract this [ok_eclipse.zip](https://tiny.cc/downloadokeclipse). 
@@ -12,12 +9,16 @@ Enabling Voice Input to augment User Experience in Integrated Development Enviro
   
 **And ya one more thing, please use a dedicated _microphone_ in a noise free environment.**
 
-## Demo
-
+## Demo (Recommended)
 [Youtube video](https://youtu.be/34EYSdmBDMs)
 
 # Evaluate
-We value your views please book an available slot [here:](https://tiny.cc/okeclipseeval).
+We value your views please evaluate [here:](https://tiny.cc/okeclipseeval1).
+
+## About
+Enabling Voice Input to augment User Experience in Integrated Development Environment.
+
+
 
 
 
