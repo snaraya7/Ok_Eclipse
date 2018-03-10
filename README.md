@@ -6,6 +6,8 @@
 1. Download & extract this [ok_eclipse.zip](https://tiny.cc/downloadokeclipse), requires Java ( we use java version "1.8.0_151" ) on Windows machine.
 1. Then run the executable **eclipse.exe** inside the extracted folder.
 1. Once your eclipse workbench is loaded you can see the **Ok Eclipse** view to try various voice commands.
+
+![](https://github.com/snaraya7/Ok_Eclipse/blob/master/img/commands.png)
   
 **And ya one more thing, please use a dedicated _microphone_ in a noise free environment.**
 
