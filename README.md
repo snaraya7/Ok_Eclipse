@@ -4,11 +4,13 @@
 ## Installing Ok Eclipse
 
 1. Download & extract this [ok_eclipse.zip](https://tiny.cc/downloadokeclipse), requires Java ( we use java version "1.8.0_151" ) on Windows machine.
-1. Then run the executable **eclipse.exe** inside the extracted folder, choose or create a new workspace (doesn't matter).
-1. Once your eclipse workbench is loaded with **Ok Eclipse** (you will see an progress bar) you can try various voice commands.
+1. Run the executable **eclipse.exe** inside the extracted eclipse folder. 
+1. Select *Launch* if a workspace dialog appears.
+1. You will see a progress dialog initializing **Ok Eclipse**. 
+1. Installation is complete, if you get the below image.
 
-![](https://github.com/snaraya7/Ok_Eclipse/blob/master/img/commands.png)
-  
+![](https://github.com/snaraya7/Ok_Eclipse/blob/master/img/success1.JPG).
+
 **And ya one more thing, please use a dedicated _microphone_ in a noise free environment.**
 
 ## Demo (Recommended)
