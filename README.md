@@ -16,9 +16,6 @@
 ## Demo (Recommended)
 [Youtube video](https://youtu.be/34EYSdmBDMs)
 
-# Evaluate
-We value your views please evaluate [here:](https://tiny.cc/okeclipseeval1).
-
 ## About
 Enabling Voice Input to augment User Experience in Integrated Development Environment.
 
