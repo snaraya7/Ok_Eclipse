@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class SOAnswerBuilder {
 		content.append("}\r\n");
 		content.append(".flatTable tr {\r\n");
 		content.append("  height: 50px;\r\n");
-		content.append("  background: #d4d1d5;\r\n");
+		content.append("  background: #e0ecf8;\r\n");
 		content.append("  border-bottom: rgba(0, 0, 0, 0.05) 1px solid;\r\n");
 		content.append("}\r\n");
 		content.append(".flatTable td {\r\n");

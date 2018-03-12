@@ -46,6 +46,8 @@ public class Util {
 
 		Command[] commands = commandManager.getAllCommands();
 
+		
+		
 		return commands;
 	}
 

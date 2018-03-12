@@ -17,7 +17,6 @@ import edu.ncstate.csc510.okeclipse.builder.SOAnswerBuilder;
 import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
-
 /**
  * 
  * This class contains the implementation of the Sound Programmer features
@@ -200,6 +199,8 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 
 				String code = getCode(answers);
 
+				code = clean(code);
+
 				int position = added + end + 1;
 
 				if (Util.isNullString(code)) {
@@ -227,6 +228,26 @@ public class SoundProgrammerImpl implements ISoundProgrammer {
 				start = index + 1;
 			}
 
+		}
+
+	}
+
+	private static String clean(String code) {
+
+		String cleanedCode = code;
+
+		if (Util.isNullString(code)) {
+			return "";
+		} else {
+
+			cleanedCode = cleanedCode.replace("&lt;", "<");
+			cleanedCode = cleanedCode.replace("&gt;", ">");
+			cleanedCode = cleanedCode.replace("&le;", "<=");
+			cleanedCode = cleanedCode.replace("&ge;", ">=");
+			cleanedCode = cleanedCode.replace("&amp;", "&");
+			cleanedCode = cleanedCode.replace("&quot;", "\"");
+
+			return cleanedCode;
 		}
 
 	}
