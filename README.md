@@ -21,7 +21,7 @@ Enabling Voice Input to augment User Experience in Integrated Development Enviro
 
 ## @authors
 
-Shrikanth N C (_snaraya7@ncsu.edu_) | Karthik Medidisiva (_kmedidi@ncsu.edu_) | Kashyap Sivasubramanian ( _ksivasu@ncsu.edu_) | Charan Ram Vellaiyur Chellaram (_cvellai@ncsu.edu_)
+[Shrikanth N C](https://www.linkedin.com/in/shrikanthnc/) | [Karthik Medidisiva](https://github.com/kmedidi)   | [Kashyap Sivasubramanian](https://github.com/ksivasu)   | [Charan Ram Vellaiyur Chellaram](https://github.com/cvellai)  
 
 
 
