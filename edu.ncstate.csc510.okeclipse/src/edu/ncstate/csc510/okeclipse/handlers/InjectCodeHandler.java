@@ -12,8 +12,8 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
- * @author ncshr
- *
+ * @author Shrikanth N C
+ *Invoked for inject code command
  */
 public class InjectCodeHandler extends AbstractHandler {
 

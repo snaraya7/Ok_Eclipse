@@ -19,14 +19,20 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
- * @author ncshr
+ * @author Shrikanth N C 
+ * Class that Initializes speech recognition on eclipse
+ *         startup
  *
  */
 public class OkEclipseStartup implements IStartup {
 
-	class s extends ProgressMonitorDialog {
+	/**
+	 * Customized progress monitor
+	 *
+	 */
+	class CustomProgressMonitor extends ProgressMonitorDialog {
 
-		public s(Shell parent) {
+		public CustomProgressMonitor(Shell parent) {
 			super(parent);
 		}
 
@@ -34,11 +40,11 @@ public class OkEclipseStartup implements IStartup {
 		protected Image getImage() {
 			return new Image(super.getShell().getDisplay(), Resources.class.getResourceAsStream("sample@6x.png"));
 		}
-		
+
 		@Override
 		public Image getInfoImage() {
 			return new Image(super.getShell().getDisplay(), Resources.class.getResourceAsStream("sample@6x.png"));
-			
+
 		}
 	}
 
@@ -50,7 +56,7 @@ public class OkEclipseStartup implements IStartup {
 
 			public void run() {
 				Shell activeShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				ProgressMonitorDialog dialog = new s(activeShell);
+				ProgressMonitorDialog dialog = new CustomProgressMonitor(activeShell);
 
 				try {
 					dialog.run(false, false, new IRunnableWithProgress() {

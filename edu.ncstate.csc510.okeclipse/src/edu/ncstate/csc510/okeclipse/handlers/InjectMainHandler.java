@@ -10,6 +10,12 @@ import org.eclipse.ui.handlers.IHandlerService;
 import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
 import edu.ncstate.csc510.okeclipse.util.Util;
 
+/**
+ * 
+ * @author Shrikanth N C
+ * Handler to inject main method
+ *
+ */
 public class InjectMainHandler extends AbstractHandler {
 
 	@Override

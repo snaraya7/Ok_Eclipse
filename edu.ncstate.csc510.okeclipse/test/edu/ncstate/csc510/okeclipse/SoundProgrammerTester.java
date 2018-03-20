@@ -6,8 +6,9 @@
 import java.util.List;
 
 import org.junit.Test;
-	import edu.ncstate.csc510.okeclipse.common.*;
-	import edu.ncstate.csc510.okeclipse.handlers.SoundProgrammerImpl;
+
+import edu.ncstate.csc510.okeclipse.common.ISoundProgrammer;
+import edu.ncstate.csc510.okeclipse.handlers.SoundProgrammerImpl;
 
 	public class SoundProgrammerTester {
 

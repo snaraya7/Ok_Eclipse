@@ -15,6 +15,11 @@ import org.eclipse.ui.console.TextConsole;
 
 import edu.ncstate.csc510.okeclipse.common.ILoudConsole;
 
+/**
+ * 
+ * Loud console Implementation
+ *
+ */
 public class LoudConsoleImpl implements ILoudConsole {
 	public static void main(String[] args) {
 

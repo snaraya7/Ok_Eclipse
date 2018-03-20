@@ -21,8 +21,8 @@ import edu.ncstate.csc510.okeclipse.views.OkEclipseView;
 
 /**
  * 
- * @author ncshr
- *
+ * @author Shrikanth N C 
+ * Frequently used reusable methods dumped here
  */
 public class Util {
 
@@ -46,8 +46,6 @@ public class Util {
 
 		Command[] commands = commandManager.getAllCommands();
 
-		
-		
 		return commands;
 	}
 

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LoudConsoleTester.class, SoundProgrammerTester.class })
+@SuiteClasses({ LoudConsoleTest.class, SoundProgrammerTester.class })
 public class AllTests {
 
 }

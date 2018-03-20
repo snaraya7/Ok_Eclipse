@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +32,8 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
- * @author ncshr
+ * @author Shrikanth N C
+ * To handle and generate stackoverflow report
  *
  */
 public class SOAnswerBuilder {
@@ -185,10 +185,10 @@ public class SOAnswerBuilder {
 		return stackoverflowAnswers;
 	}
 
-	private void openExternalBrowser(URL url) throws PartInitException, MalformedURLException {
-		final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser();
-		browser.openURL(url);
-	}
+//	private void openExternalBrowser(URL url) throws PartInitException, MalformedURLException {
+//		final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser();
+//		browser.openURL(url);
+//	}
 
 	private void openBrowser() throws PartInitException, MalformedURLException {
 		final IWebBrowser browser = PlatformUI.getWorkbench().getBrowserSupport()

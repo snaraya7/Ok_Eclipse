@@ -18,16 +18,20 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
- * @author ncshr
- *
+ * @author Shrikanth N C
+ * Wrapper to the sphinx library
  */
 public class VoiceRecognizer {
-	
 
 	private static LiveSpeechRecognizer recognizer;
 
 	private static final String FILENAME = "okeclipse.dict";
 
+	/**
+	 * Loads the sphinx library
+	 * @param monitor
+	 * @throws IOException
+	 */
 	public static void start(IProgressMonitor monitor) throws IOException {
 
 		if (isDictionaryNeeded()) {
@@ -54,7 +58,7 @@ public class VoiceRecognizer {
 
 		Map<String, String> customDictionary = new CustomDictionaryBuilder().build();
 
-		System.out.println(getCustomDictionaryFile()+" -- ??>>>");
+		System.out.println(getCustomDictionaryFile() + " -- ??>>>");
 		try (PrintWriter out = new PrintWriter(new BufferedWriter(
 				new OutputStreamWriter(new FileOutputStream(getCustomDictionaryFile()), StandardCharsets.UTF_8)))) {
 

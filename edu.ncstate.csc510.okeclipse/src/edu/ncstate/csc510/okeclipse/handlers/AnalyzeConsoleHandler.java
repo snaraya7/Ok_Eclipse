@@ -12,8 +12,8 @@ import edu.ncstate.csc510.okeclipse.common.ILoudConsole;
 
 /**
  * 
- * @author ncshr
- *
+ * @author Shrikanth N C
+ * Invoked for Loud console command
  */
 public class AnalyzeConsoleHandler extends AbstractHandler {
 

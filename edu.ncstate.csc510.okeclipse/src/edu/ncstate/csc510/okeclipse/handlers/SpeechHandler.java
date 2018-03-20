@@ -28,8 +28,7 @@ import edu.ncstate.csc510.okeclipse.util.Util;
 
 /**
  * 
- * @author ncshr
- *
+ * @author Shrikanth N C Main class that processes the speech request
  */
 public class SpeechHandler extends AbstractHandler {
 
@@ -142,63 +141,6 @@ public class SpeechHandler extends AbstractHandler {
 
 	}
 
-	// if (commands.isEmpty()) {
-	// System.out.println("Empty");
-	// return;
-	// }
-
-	// Collections.sort(commands, new Comparator<Command>() {
-	//
-	// @Override
-	// public int compare(Command o1, Command o2) {
-	//
-	// int result = 0;
-	//
-	// String name1 = "";
-	// try {
-	// name1 = o1.getName().toLowerCase();
-	// } catch (NotDefinedException e) {
-	// }
-	// String name2 = "";
-	// try {
-	// name2 = o2.getName().toLowerCase();
-	// } catch (NotDefinedException e) {
-	// }
-	//
-	// if (name1.startsWith(spokenText)) {
-	// result = 1;
-	// }
-	//
-	// if (name2.startsWith(spokenText)) {
-	// result = -1;
-	// }
-	//
-	// return result;
-	// }
-	//
-	// });
-
-	// System.out.println(spokenText + "\t sorted >> " + commands);
-	// for (Command c : commands)
-	// {
-
-	// Command selected = commands.get(0);
-	// int i = 0;
-	// try {
-	// for (Command c : commands) {
-	// System.out.println("sorted > " + c.getId() + " " + c.getName() + " > " +
-	// i++);
-	// }
-	//
-	// System.out.println(spokenText + "\tExecuting " + selected.getId() + " > " +
-	// selected.getName());
-	// invokeCommand(window, selected, event);
-	// } catch (ExecutionException | NotDefinedException | NotEnabledException |
-	// NotHandledException e) {
-	// System.out.println("Failed");
-	// }
-	// // }
-
 	private String findCommand(String spokenText) {
 
 		List<OECommand> commands = CommandsBuilder.getCommands();
@@ -213,64 +155,4 @@ public class SpeechHandler extends AbstractHandler {
 		return null;
 	}
 
-	// private List<Command> findRelevantCommands(String spokenText) {
-	//
-	// CommandManager commandManager =
-	// PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-	// .getService(CommandManager.class);
-	//
-	// Command[] commands = commandManager.getAllCommands();
-	//
-	// write(commands);
-	//
-	// List<Command> relevantCommands = new ArrayList<>();
-	//
-	// for (Command c : commands) {
-	//
-	// try {
-	// if (c.getName().toLowerCase().contains(spokenText)) {
-	// relevantCommands.add(c);
-	// }
-	// } catch (NotDefinedException e) {
-	// }
-	//
-	// }
-	//
-	// return relevantCommands;
-	// }
-
-	// private void write(Command[] commands) {
-	//
-	// int ccr = 0;
-	// for (Command c : commands) {
-	// try {
-	// String rowEntry = c.getName().toLowerCase() + "," + c.getId();
-	// ++ccr;
-	// try (PrintWriter out = new PrintWriter(new BufferedWriter(
-	// new OutputStreamWriter(new FileOutputStream("commands.csv", true),
-	// StandardCharsets.UTF_8)))) {
-	//
-	// out.println(rowEntry);
-	//
-	// }
-	//
-	// catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// } catch (NotDefinedException e) {
-	// }
-	// }
-	//
-	// System.out.println(ccr);
-	// }
-
-	// private void invokeCommand(IWorkbenchWindow window, Command command,
-	// ExecutionEvent event)
-	// throws ExecutionException, NotDefinedException, NotEnabledException,
-	// NotHandledException {
-	//
-	// IHandlerService handlerService = (IHandlerService)
-	// window.getService(IHandlerService.class);
-	// handlerService.executeCommand(command.getId(), null);
-	// }
 }

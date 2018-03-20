@@ -2,7 +2,9 @@ package edu.ncstate.csc510.okeclipse.model;
 
 /**
  * 
- * @author ncshr
+ * @author Shrikanth N C
+ * OE - Ok Eclipse command
+ * A wrapper to eclipse command id and user spoken name
  *
  */
 public final class OECommand {
