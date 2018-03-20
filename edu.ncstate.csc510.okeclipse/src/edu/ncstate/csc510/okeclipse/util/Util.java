@@ -90,7 +90,7 @@ public class Util {
 
 	public static void appendToLog(String entry) {
 
-		String log = System.getProperty("user.name") + "," + entry + "," + new Date(System.currentTimeMillis()) + "\n";
+		String log = "User" + "," + entry + "," + new Date(System.currentTimeMillis()) + "\n";
 
 		FileWriter fw = null;
 		BufferedWriter bw = null;
